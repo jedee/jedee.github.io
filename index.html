@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jedidiah Ojeh — Project Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d1117;
+      --bg-card:   #131920;
+      --bg-hover:  #1a2330;
+      --border:    #1e2d3d;
+      --border-hi: #2a4060;
+      --text:      #e8e0d4;
+      --text-mid:  #8fa0b0;
+      --text-soft: #4a5f72;
+      --gold:      #c8952a;
+      --gold-dim:  #7a5a18;
+      --gold-glow: rgba(200,149,42,0.08);
+      --teal:      #2dd4bf;
+      --teal-dim:  rgba(45,212,191,0.08);
+      --red:       #f87171;
+      --green:     #4ade80;
+      --blue:      #60a5fa;
+      --purple:    #c084fc;
+      --orange:    #fb923c;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Subtle grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(30,45,61,0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,45,61,0.3) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+
+    /* ── HEADER ── */
+    header {
+      padding: 1.8rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      animation: fadeDown 0.5s ease forwards;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+    }
+
+    .logo-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border-hi);
+      background: var(--bg-card);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .logo-avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .logo-avatar-fallback {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .logo-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+
+    nav { display: flex; align-items: center; gap: 0.6rem; }
+
+    .nav-link {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text-soft);
+      padding: 0.4rem 0.8rem;
+      border: 1px solid transparent;
+      border-radius: 3px;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--text-mid);
+      border-color: var(--border);
+    }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--bg) !important;
+      border-color: transparent !important;
+      font-weight: 500;
+    }
+
+    .nav-cta:hover {
+      background: #d9a63a !important;
+      border-color: transparent !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 5rem 0 3.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: start;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid var(--gold-dim);
+      border-radius: 100px;
+      background: var(--gold-glow);
+      margin-bottom: 1.8rem;
+      animation: fadeUp 0.5s ease forwards 0.1s;
+      opacity: 0;
+    }
+
+    .badge-pulse {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s ease infinite;
+    }
+
+    .badge-text {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 400;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.75); }
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      animation: fadeUp 0.6s ease forwards 0.2s;
+      opacity: 0;
+    }
+
+    h1 strong { font-weight: 600; display: block; }
+    h1 em { font-style: italic; color: var(--gold); }
+
+    .hero-meta {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      animation: fadeUp 0.5s ease forwards 0.35s;
+      opacity: 0;
+    }
+
+    .hero-role {
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      color: var(--text-mid);
+      text-transform: uppercase;
+    }
+
+    .hero-bio-text {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--text-mid);
+      max-width: 480px;
+      margin-top: 0.5rem;
+    }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 2.5rem;
+      animation: fadeUp 0.5s ease forwards 0.5s;
+      opacity: 0;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    .stat-divider { width: 1px; background: var(--border); align-self: stretch; }
+
+    /* ── HERO RIGHT ── */
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1.2rem;
+      animation: fadeIn 0.8s ease forwards 0.6s;
+      opacity: 0;
+      padding-top: 0.5rem;
+    }
+
+    .profile-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-card);
+      padding: 1.4rem;
+      width: 200px;
+      text-align: center;
+    }
+
+    .profile-img {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      border: 2px solid var(--border-hi);
+      margin: 0 auto 0.8rem;
+      overflow: hidden;
+      background: var(--bg-hover);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .profile-img img { width: 100%; height: 100%; object-fit: cover; display: none; }
+
+    .profile-img-fallback {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .profile-handle {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .profile-name-card {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+    }
+
+    .profile-links {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .profile-link-btn {
+      padding: 0.3rem 0.7rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--border-hi);
+      border-radius: 3px;
+      color: var(--text-mid);
+      transition: all 0.2s;
+    }
+
+    .profile-link-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      padding: 1.8rem 0;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+      animation: fadeUp 0.5s ease forwards 0.7s;
+      opacity: 0;
+    }
+
+    .filter-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      margin-right: 0.5rem;
+    }
+
+    .filter-btn {
+      padding: 0.35rem 0.9rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--border-hi);
+      color: var(--text-mid);
+    }
+
+    .filter-btn.active {
+      background: var(--gold-glow);
+      border-color: var(--gold-dim);
+      color: var(--gold);
+    }
+
+    .search-box {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      background: var(--bg-card);
+    }
+
+    .search-box svg {
+      width: 12px; height: 12px;
+      stroke: var(--text-soft);
+      fill: none;
+      stroke-width: 2;
+      flex-shrink: 0;
+    }
+
+    .search-box input {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      color: var(--text);
+      width: 160px;
+    }
+
+    .search-box input::placeholder { color: var(--text-soft); }
+
+    /* ── PROJECT GRID ── */
+    .projects-header {
+      padding: 2.5rem 0 1.5rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .projects-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--text);
+    }
+
+    .projects-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-soft);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 4rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      transition: background 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .project-card:hover { background: var(--bg-hover); }
+
+    .project-card.hidden { display: none; }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .card-icon {
+      width: 32px; height: 32px;
+      border-radius: 6px;
+      border: 1px solid var(--border-hi);
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-icon svg {
+      width: 14px; height: 14px;
+      stroke: var(--text-soft);
+      fill: none;
+      stroke-width: 1.6;
+    }
+
+    .card-fork-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      color: var(--text-soft);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.15rem 0.4rem;
+    }
+
+    .card-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--teal);
+      letter-spacing: 0.02em;
+      word-break: break-all;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--text-mid);
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-desc.empty { color: var(--text-soft); font-style: italic; }
+
+    .card-topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .topic-tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+      background: var(--teal-dim);
+      color: var(--teal);
+      border: 1px solid rgba(45,212,191,0.15);
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .card-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      color: var(--text-soft);
+    }
+
+    .card-stat svg {
+      width: 11px; height: 11px;
+      fill: currentColor;
+      stroke: none;
+    }
+
+    .lang-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .card-updated {
+      margin-left: auto;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-soft);
+    }
+
+    /* ── LOADING / EMPTY ── */
+    .loading-state {
+      grid-column: 1 / -1;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .loading-spinner {
+      width: 32px; height: 32px;
+      border: 2px solid var(--border);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1.2rem;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .error-state {
+      grid-column: 1 / -1;
+      padding: 4rem 2rem;
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 0.85rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.8rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer p {
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-api-note {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-soft);
+    }
+
+    .api-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+
+    /* ── LANG COLORS ── */
+    .lang-JavaScript { background: #f1e05a; }
+    .lang-TypeScript { background: #3178c6; }
+    .lang-Python     { background: #3572a5; }
+    .lang-HTML       { background: #e34c26; }
+    .lang-CSS        { background: #563d7c; }
+    .lang-Shell      { background: #89e051; }
+    .lang-Go         { background: #00add8; }
+    .lang-Rust       { background: #dea584; }
+    .lang-Java       { background: #b07219; }
+    .lang-Ruby       { background: #701516; }
+    .lang-PHP        { background: #4f5d95; }
+    .lang-C          { background: #555555; }
+    .lang-default    { background: #8a8580; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      .page { padding: 0 1.2rem; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .stats-row { gap: 1.5rem; }
+      .search-box { display: none; }
+      .projects-grid { grid-template-columns: 1fr; }
+      nav .nav-link:not(.nav-cta) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <a href="#" class="logo">
+      <div class="logo-avatar" id="headerAvatar">
+        <img id="headerAvatarImg" src="" alt="JO" />
+        <span class="logo-avatar-fallback" id="headerAvatarFallback">JO</span>
+      </div>
+      <span class="logo-name">Jedidiah Ojeh</span>
+    </a>
+    <nav>
+      <a href="https://github.com/jedee" target="_blank" class="nav-link">GitHub</a>
+      <a href="https://linkedin.com/in/jedidiah-ojeh" target="_blank" class="nav-link">LinkedIn</a>
+      <a href="mailto:ojehjedidiah@gmail.com" class="nav-link nav-cta">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="hero-badge">
+        <div class="badge-pulse"></div>
+        <span class="badge-text">Project Portfolio — Live from GitHub</span>
+      </div>
+
+      <h1>
+        <strong>Jedidiah</strong>
+        <em>Ojeh.</em>
+      </h1>
+
+      <div class="hero-meta">
+        <span class="hero-role">Technical Writer · Product Analyst · SaaS & Automation</span>
+        <p class="hero-bio-text" id="heroBio">
+          Designing data-driven operational systems and building tools that make complex workflows simple. Every project here is built with clarity, purpose, and scale in mind.
+        </p>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-num" id="statRepos">—</span>
+          <span class="stat-label">Repositories</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" id="statStars">—</span>
+          <span class="stat-label">Total Stars</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" id="statFollowers">—</span>
+          <span class="stat-label">Followers</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" id="statLangs">—</span>
+          <span class="stat-label">Languages</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="profile-card">
+        <div class="profile-img">
+          <img id="profileImg" src="" alt="JO" />
+          <span class="profile-img-fallback" id="profileFallback">JO</span>
+        </div>
+        <div class="profile-handle">@jedee</div>
+        <div class="profile-name-card">Jedidiah Ojeh</div>
+        <div class="profile-links">
+          <a href="https://github.com/jedee" target="_blank" class="profile-link-btn">GitHub</a>
+          <a href="mailto:ojehjedidiah@gmail.com" class="profile-link-btn">Email</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar" id="filterBar">
+    <span class="filter-label">Filter</span>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <div id="langFilters"></div>
+    <div class="search-box">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Search projects..." />
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="projects-header">
+    <h2 class="projects-title">Work &amp; Projects</h2>
+    <span class="projects-count" id="projectsCount">Loading…</span>
+  </div>
+
+  <div class="projects-grid" id="projectsGrid">
+    <div class="loading-state">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Fetching from GitHub API…</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Jedidiah Ojeh · ojehjedidiah@gmail.com</p>
+    <div class="footer-api-note">
+      <div class="api-dot"></div>
+      <span>Live data via GitHub API</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const USERNAME = 'jedee';
+  const GITHUB_API = 'https://api.github.com';
+
+  const LANG_COLORS = {
+    JavaScript: '#f1e05a', TypeScript: '#3178c6', Python: '#3572a5',
+    HTML: '#e34c26', CSS: '#563d7c', Shell: '#89e051', Go: '#00add8',
+    Rust: '#dea584', Java: '#b07219', Ruby: '#701516', PHP: '#4f5d95',
+    'C++': '#f34b7d', C: '#555555', 'C#': '#178600', Vue: '#41b883',
+    Svelte: '#ff3e00', Kotlin: '#a97bff', Swift: '#F05138',
+  };
+
+  function langColor(lang) {
+    return LANG_COLORS[lang] || '#8a8580';
+  }
+
+  function timeAgo(dateStr) {
+    const diff = Date.now() - new Date(dateStr).getTime();
+    const d = Math.floor(diff / 86400000);
+    if (d < 1)  return 'today';
+    if (d < 7)  return `${d}d ago`;
+    if (d < 30) return `${Math.floor(d/7)}w ago`;
+    if (d < 365) return `${Math.floor(d/30)}mo ago`;
+    return `${Math.floor(d/365)}y ago`;
+  }
+
+  function buildCard(repo) {
+    const a = document.createElement('a');
+    a.className = 'project-card';
+    a.href = repo.html_url;
+    a.target = '_blank';
+    a.dataset.lang = repo.language || '';
+    a.dataset.name = (repo.name + ' ' + (repo.description || '') + ' ' + (repo.topics || []).join(' ')).toLowerCase();
+
+    const langDot = repo.language
+      ? `<span class="lang-dot" style="background:${langColor(repo.language)}"></span><span>${repo.language}</span>`
+      : '';
+
+    const topics = (repo.topics || []).slice(0, 4)
+      .map(t => `<span class="topic-tag">${t}</span>`).join('');
+
+    const forkBadge = repo.fork
+      ? `<span class="card-fork-badge">fork</span>` : '';
+
+    a.innerHTML = `
+      <div class="card-top">
+        <div>
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 3h18v18H3zM3 9h18M9 21V9"/></svg>
+          </div>
+        </div>
+        ${forkBadge}
+      </div>
+      <div class="card-name">${repo.name}</div>
+      <p class="card-desc ${!repo.description ? 'empty' : ''}">${repo.description || 'No description provided.'}</p>
+      ${topics ? `<div class="card-topics">${topics}</div>` : ''}
+      <div class="card-footer">
+        ${langDot ? `<div class="card-stat">${langDot}</div>` : ''}
+        ${repo.stargazers_count > 0 ? `
+          <div class="card-stat">
+            <svg viewBox="0 0 16 16"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 11.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+            <span>${repo.stargazers_count}</span>
+          </div>` : ''}
+        ${repo.forks_count > 0 ? `
+          <div class="card-stat">
+            <svg viewBox="0 0 16 16"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z"/></svg>
+            <span>${repo.forks_count}</span>
+          </div>` : ''}
+        <span class="card-updated">${timeAgo(repo.updated_at)}</span>
+      </div>
+    `;
+    return a;
+  }
+
+  function buildLangFilters(repos) {
+    const counts = {};
+    repos.forEach(r => { if (r.language) counts[r.language] = (counts[r.language] || 0) + 1; });
+
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 6);
+    const container = document.getElementById('langFilters');
+    container.style.display = 'flex';
+    container.style.gap = '0.5rem';
+    container.style.flexWrap = 'wrap';
+
+    sorted.forEach(([lang, count]) => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.dataset.filter = lang;
+      btn.innerHTML = `<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${langColor(lang)};margin-right:5px;vertical-align:middle"></span>${lang} <span style="opacity:0.5;margin-left:3px">${count}</span>`;
+      container.appendChild(btn);
+    });
+  }
+
+  let allRepos = [];
+
+  function filterAndRender(lang, query) {
+    const cards = document.querySelectorAll('.project-card');
+    let visible = 0;
+    cards.forEach(card => {
+      const matchLang = lang === 'all' || card.dataset.lang === lang;
+      const matchQuery = !query || card.dataset.name.includes(query.toLowerCase());
+      if (matchLang && matchQuery) {
+        card.classList.remove('hidden');
+        visible++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+    document.getElementById('projectsCount').textContent = `${visible} project${visible !== 1 ? 's' : ''}`;
+  }
+
+  async function init() {
+    try {
+      // Fetch profile + repos in parallel
+      const [profileRes, reposRes] = await Promise.all([
+        fetch(`${GITHUB_API}/users/${USERNAME}`),
+        fetch(`${GITHUB_API}/users/${USERNAME}/repos?sort=updated&per_page=100`)
+      ]);
+
+      const profile = await profileRes.json();
+      const repos = await reposRes.json();
+
+      // Load avatar
+      if (profile.avatar_url) {
+        const imgs = [document.getElementById('headerAvatarImg'), document.getElementById('profileImg')];
+        const fallbacks = [document.getElementById('headerAvatarFallback'), document.getElementById('profileFallback')];
+        imgs.forEach((img, i) => {
+          img.src = profile.avatar_url;
+          img.style.display = 'block';
+          if (fallbacks[i]) fallbacks[i].style.display = 'none';
+        });
+      }
+
+      // Update bio if GitHub has one
+      if (profile.bio) {
+        document.getElementById('heroBio').textContent = profile.bio;
+      }
+
+      // Stats
+      const totalStars = repos.reduce((s, r) => s + r.stargazers_count, 0);
+      const langs = new Set(repos.map(r => r.language).filter(Boolean));
+
+      document.getElementById('statRepos').textContent = profile.public_repos ?? repos.length;
+      document.getElementById('statStars').textContent = totalStars;
+      document.getElementById('statFollowers').textContent = profile.followers ?? '—';
+      document.getElementById('statLangs').textContent = langs.size;
+      document.getElementById('projectsCount').textContent = `${repos.length} project${repos.length !== 1 ? 's' : ''}`;
+
+      // Build lang filters
+      buildLangFilters(repos);
+
+      // Render cards
+      const grid = document.getElementById('projectsGrid');
+      grid.innerHTML = '';
+
+      if (!repos.length) {
+        grid.innerHTML = '<div class="error-state">No public repositories found.</div>';
+        return;
+      }
+
+      allRepos = repos;
+      repos.forEach(repo => grid.appendChild(buildCard(repo)));
+
+      // Filter logic
+      let activeLang = 'all';
+      let activeQuery = '';
+
+      document.getElementById('filterBar').addEventListener('click', e => {
+        const btn = e.target.closest('.filter-btn');
+        if (!btn) return;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeLang = btn.dataset.filter;
+        filterAndRender(activeLang, activeQuery);
+      });
+
+      document.getElementById('searchInput').addEventListener('input', e => {
+        activeQuery = e.target.value;
+        filterAndRender(activeLang, activeQuery);
+      });
+
+    } catch (err) {
+      document.getElementById('projectsGrid').innerHTML =
+        `<div class="error-state">
+          <p>Could not load GitHub data.</p>
+          <p style="margin-top:0.5rem;font-size:0.75rem;color:#4a5f72">Check your connection or GitHub API rate limits.</p>
+        </div>`;
+    }
+  }
+
+  init();
+</script>
+
+</body>
+</html>
